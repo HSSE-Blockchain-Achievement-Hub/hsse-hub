@@ -3,12 +3,13 @@ pragma solidity ^0.8.0;
 
 import "./Subscriptions.sol";
 import "./SuperUsers.sol";
+import "./UniqueUsers.sol";
 
 contract MyToken {
 
   Subscribers private sub_manager;
-
   SuperUsers private super_manager;
+  UniqueUsers private unique_manager;
 
   struct Achievement {
     uint256 id;
@@ -17,9 +18,10 @@ contract MyToken {
     string baseURI;
   }  
 
-  constructor(address _sub, address _superUsers) {
+  constructor(address _sub, address _superUsers, address _uniqueUsers) {
     sub_manager = Subscribers(_sub);
     super_manager = SuperUsers(_superUsers);
+    unique_manager = UniqueUsers(_uniqueUsers);
   }
 
   uint256 private total_token_id_ = 0;
@@ -37,7 +39,7 @@ contract MyToken {
 
   function mint(string memory name_, string memory description_, string memory baseURI_, address to_) public {
     if (!super_manager.isSuperUser(msg.sender)) {
-      require((sub_manager.getSubscribersAmount(msg.sender) / sub_manager.getUniqueUsersCnt()) * 100 >= 15, "not enough subscriptions to mint!");
+      require((sub_manager.getSubscribersAmount(msg.sender) / unique_manager.getUniqueUsersCnt()) * 100 >= 15, "not enough subscriptions to mint!");
     }
     total_token_id_++;
     Achievement memory new_achievement = Achievement(

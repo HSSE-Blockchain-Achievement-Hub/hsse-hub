@@ -16,7 +16,7 @@ contract SuperUsers {
 
     uint256 public constant voting_duration = 2 days;
     mapping(uint256 => Voting) private votings_;
-    mapping(uint256 => mapping(address => bool)) has_voted_;
+    mapping(uint256 => mapping(address => bool)) private has_voted_;
     uint256 private current_voting_number_ = 0;
 
     struct Voting {
@@ -88,6 +88,7 @@ contract SuperUsers {
         public
         validVoting(voting_number)
     {
+        require(votings_[voting_number].executed == false, "Voting's ended");
         require(
             votings_[voting_number].votingStarts + voting_duration <
                 block.timestamp,

@@ -1,12 +1,17 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
+import "./UniqueUsers.sol";
 
 contract Subscribers {
   mapping (address => uint256) private subscribers_amount_;
   mapping (address => mapping (address => bool)) private is_already_subscriber_;
-  uint256 private unique_users_cnt_ = 0;
-  mapping (address => uint256) private users_active_; 
+
+  UniqueUsers private uniq_manager_;
+
+  constructor (address unique_) {
+    uniq_manager_ = UniqueUsers(unique_);
+  }
 
   function isAlreadySubscriber(address from_, address to_) public view returns(bool) {  
     return is_already_subscriber_[from_][to_];
@@ -16,21 +21,11 @@ contract Subscribers {
     return is_already_subscriber_[msg.sender][to_];
   }
 
-  function getUniqueUsersCnt() public view returns(uint256) {
-    return unique_users_cnt_;
-  }
-
   function safeSub(address from_, address to_) private {
     is_already_subscriber_[from_][to_] = true;
     ++subscribers_amount_[to_];
-    if (users_active_[from_] == 0) {
-      ++unique_users_cnt_;
-    }
-    if (users_active_[to_] == 0) {
-      ++unique_users_cnt_;
-    }
-    ++users_active_[from_];
-    ++users_active_[to_];
+    uniq_manager_.addCount(from_);
+    uniq_manager_.addCount(to_);
   }
 
   function safeUnsub(address from_, address to_) private {
