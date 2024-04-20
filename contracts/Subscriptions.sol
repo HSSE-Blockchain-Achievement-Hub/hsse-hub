@@ -16,13 +16,24 @@ contract Subscribers {
 
   function safeSub(address from_, address to_) private {
     is_already_subscriber_[from_][to_] = true;
-    subscribers_amount_[to_] += 1;
+    ++subscribers_amount_[to_];
+  }
+
+  function safeUnsub(address from_, address to_) private {
+    is_already_subscriber_[from_][to_] = false;
+    --subscribers_amount_[to_];
   }
 
   function subscribeOn(address to_) public {
     require(!isAlreadySubscriber(msg.sender, to_), "You're already subscribed");
     require(msg.sender != to_, "You can't subscribed on yourself!");
     safeSub(msg.sender, to_);
+  }
+
+  function unsubscribeFrom(address from_) public {
+    require(isAlreadySubscriber(msg.sender, from_), "You're haven't been subscribed");
+    require(msg.sender != from_, "You can't unsubscribe from yourself!");
+    safeUnsub(msg.sender, from_);
   }
 
   function getSubscribersAmount(address target_) view public returns(uint256) {
