@@ -3,25 +3,40 @@ pragma solidity ^0.8.0;
 
 
 contract Subscribers {
-    mapping (address => uint256) private subscribers_amount_;
-    mapping (address => mapping (address => bool)) private is_already_subscriber_;
+  mapping (address => uint256) private subscribers_amount_;
+  mapping (address => mapping (address => bool)) private is_already_subscriber_;
 
-    function isAlreadySubscriber(address subscribe_from, address subscribe_to) public view returns(bool) {
-      return is_already_subscriber_[subscribe_from][subscribe_to];
-    }
+  function isAlreadySubscriber(address from_, address to_) public view returns(bool) {
+    return is_already_subscriber_[from_][to_];
+  }
 
-    function Sub(address subscribe_from, address subscribe_to) private {
-      is_already_subscriber_[subscribe_from][subscribe_to] = true;
-      subscribers_amount_[subscribe_to] += 1;
-    }
+  function isAlreadySubscriber(address to_) public view returns(bool) {
+    return is_already_subscriber_[msg.sender][to_];
+  }
 
-    function subscribeOn(address subscribe_from, address subscribe_to) public {
-      require(!isAlreadySubscriber(subscribe_from, subscribe_to), "You're already subscribed");
-      require(subscribe_from != subscribe_to, "You can't subscribed on yourself!");
-      Sub(subscribe_from, subscribe_to);
-    }
+  function safeSub(address from_, address to_) private {
+    is_already_subscriber_[from_][to_] = true;
+    ++subscribers_amount_[to_];
+  }
 
-    function getSubscribersAmount(address target) view public returns(uint256) {
-      return subscribers_amount_[target];
-    }
+  function safeUnsub(address from_, address to_) private {
+    is_already_subscriber_[from_][to_] = false;
+    --subscribers_amount_[to_];
+  }
+
+  function subscribeOn(address to_) public {
+    require(!isAlreadySubscriber(msg.sender, to_), "You're already subscribed");
+    require(msg.sender != to_, "You can't subscribed on yourself!");
+    safeSub(msg.sender, to_);
+  }
+
+  function unsubscribeFrom(address from_) public {
+    require(isAlreadySubscriber(msg.sender, from_), "You're haven't been subscribed");
+    require(msg.sender != from_, "You can't unsubscribe from yourself!");
+    safeUnsub(msg.sender, from_);
+  }
+
+  function getSubscribersAmount(address target_) view public returns(uint256) {
+    return subscribers_amount_[target_];
+  }
 }
