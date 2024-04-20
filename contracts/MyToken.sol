@@ -70,6 +70,10 @@ contract MyToken {
     return owners_[token_id] == msg.sender;
   }
 
+  function getOwner(uint256 token_id) public view returns(address) {
+    return owners_[token_id];
+  }
+
   function getAllAchievements(address account_) public view returns(Achievement[] memory) {
     uint256 cnt = 0;
     for (uint256 i = 0; i <= total_token_id_; i++) {
