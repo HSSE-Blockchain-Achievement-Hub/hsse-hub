@@ -88,6 +88,7 @@ contract SuperUsers {
         public
         validVoting(voting_number)
     {
+        require(votings_[voting_number].executed == false, "Voting's ended");
         require(
             votings_[voting_number].votingStarts + voting_duration <
                 block.timestamp,
