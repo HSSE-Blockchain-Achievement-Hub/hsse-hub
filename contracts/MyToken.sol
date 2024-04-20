@@ -1,20 +1,25 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
-import "./Subscribers.sol";
+import "./Subscriptions.sol";
+import "./SuperUsers.sol";
 
-contract MyERC712 {
+contract MyToken {
 
   Subscribers private sub_manager;
+
+  SuperUsers private super_manager;
 
   struct Achievement {
     uint256 id;
     string name;
+    string description;
     string baseURI;
-  }
+  }  
 
-  constructor(address _sub) {
+  constructor(address _sub, address _superUsers) {
     sub_manager = Subscribers(_sub);
+    super_manager = SuperUsers(_superUsers);
   }
 
   uint256 private total_token_id_ = 0;
@@ -30,11 +35,13 @@ contract MyERC712 {
     owners_[token_id_] = to_;
   }
 
-  function mint(string memory name_, string memory baseURI_, address to_) public {
-    require(sub_manager.getSubscribersAmount(msg.sender) > 0, "not enough subscriptions to mint!");
+  function mint(string memory name_, string memory description_, string memory baseURI_, address to_) public {
+    if (!super_manager.isSuperUser(msg.sender)) {
+      require((sub_manager.getSubscribersAmount(msg.sender) / sub_manager.getUniqueUsersCnt()) * 100 >= 15, "not enough subscriptions to mint!");
+    }
     total_token_id_++;
     Achievement memory new_achievement = Achievement(
-      total_token_id_, name_, baseURI_
+      total_token_id_, name_, description_, baseURI_
     );
     safeMint(new_achievement, to_);
   }
@@ -55,6 +62,10 @@ contract MyERC712 {
 
   function isOwner(uint256 token_id, address candidate_) public view returns(bool) {
     return owners_[token_id] == candidate_;
+  }
+
+  function isOwner(uint256 token_id) public view returns(bool) {
+    return owners_[token_id] == msg.sender;
   }
 
   function getAllAchievements(address account_) public view returns(Achievement[] memory) {
