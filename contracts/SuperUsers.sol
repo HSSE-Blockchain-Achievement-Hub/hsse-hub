@@ -16,7 +16,7 @@ contract SuperUsers {
 
     uint256 public constant voting_duration = 2 days;
     mapping(uint256 => Voting) private votings_;
-    mapping(uint256 => mapping(address => bool)) has_voted_;
+    mapping(uint256 => mapping(address => bool)) private has_voted_;
     uint256 private current_voting_number_ = 0;
 
     struct Voting {
