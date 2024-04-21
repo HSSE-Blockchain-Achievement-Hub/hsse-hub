@@ -10,10 +10,6 @@ contract UniqueUsers {
     if (users_active_[user_] == 0) {
       ++unique_users_cnt_;
     }
-    if (users_active_[user_] == 0) {
-      ++unique_users_cnt_;
-    }
-    ++users_active_[user_];
     ++users_active_[user_];
   }
 
