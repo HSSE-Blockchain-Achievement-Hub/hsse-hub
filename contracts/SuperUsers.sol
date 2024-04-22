@@ -1,12 +1,19 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
+import "./UniqueUsers.sol";
+
 contract SuperUsers {
+    UniqueUsers private unique_manager;
+
     mapping(address => bool) private is_super_user_;
 
-    constructor(address[] memory super_users) {
+    constructor(address _uniqueUsers, address[] memory super_users) {
+        unique_manager = UniqueUsers(_uniqueUsers);
+
         for (uint256 i = 0; i < super_users.length; ++i) {
             is_super_user_[super_users[i]] = true;
+            unique_manager.addCount(super_users[i]);
         }
     }
 
@@ -37,6 +44,8 @@ contract SuperUsers {
         Voting memory newVoting = Voting(user, 0, 0, block.timestamp, false);
 
         votings_[current_voting_number_] = newVoting;
+
+        unique_manager.addCount(user);
     }
 
     modifier onlyUnvoted(uint256 voting_number) {
@@ -72,6 +81,7 @@ contract SuperUsers {
     {
         has_voted_[voting_number][msg.sender] = true;
         ++votings_[voting_number].forVotes;
+        unique_manager.addCount(msg.sender);
     }
 
     function voteAgainst(uint256 voting_number)
@@ -82,6 +92,7 @@ contract SuperUsers {
     {
         has_voted_[voting_number][msg.sender] = true;
         ++votings_[voting_number].againstVotes;
+        unique_manager.addCount(msg.sender);
     }
 
     function summarizeVoting(uint256 voting_number)
@@ -97,7 +108,8 @@ contract SuperUsers {
         votings_[voting_number].executed = true;
         if (
             votings_[voting_number].forVotes >
-            votings_[voting_number].againstVotes
+            votings_[voting_number].againstVotes &&
+            ((votings_[voting_number].forVotes + votings_[voting_number].againstVotes) / unique_manager.getUniqueUsersCnt()) * 100 >= 15
         ) {
             is_super_user_[votings_[voting_number].user] = true;
         }
