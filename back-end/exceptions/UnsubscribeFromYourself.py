@@ -1,0 +1,2 @@
+class UnsubscribeFromYourself(Exception):
+    pass

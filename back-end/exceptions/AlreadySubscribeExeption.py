@@ -1,0 +1,2 @@
+class AlreadySubscribeExeption(Exception):
+    pass

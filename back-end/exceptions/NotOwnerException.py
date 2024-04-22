@@ -1,0 +1,2 @@
+class NotOwnerException(Exception):
+    pass

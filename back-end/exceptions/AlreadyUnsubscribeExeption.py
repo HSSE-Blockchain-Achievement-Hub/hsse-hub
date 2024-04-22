@@ -1,0 +1,2 @@
+class AlreadyUnsubscribeExeption(Exception):
+    pass

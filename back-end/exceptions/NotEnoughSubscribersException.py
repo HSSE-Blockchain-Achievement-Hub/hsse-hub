@@ -1,0 +1,2 @@
+class NotEnoughSubscribersException(Exception):
+    pass
