@@ -28,19 +28,41 @@ contract MyToken {
   mapping (uint256 => Achievement) private achievements_;
   mapping (uint256 => address) private owners_;
 
+
+  modifier isOwner(uint256 token_id_, address candidate_) {
+    require(owners_[token_id_] == candidate_, "wrong owner of the token!");
+    _;
+  }
+
+  modifier enoughSubscribers(address candidate_) {
+    if (!super_manager.isSuperUser(candidate_)) {
+      require((sub_manager.getSubscribersAmount(candidate_) / unique_manager.getUniqueUsersCnt()) * 100 >= 15, "not enough subscriptions to mint!");
+    }
+    _;
+  }
+
+  modifier validToken(uint256 token_id_) {
+    require(token_id_ <= total_token_id_, "invalid token id!");
+    _;
+  }
+
+
+  event Minted(address indexed to_, uint256 indexed token_id_);
+  event Transfered(address indexed from_, address indexed to_, uint256 indexed token_id_);
+
+
   function safeMint(Achievement memory new_achievment, address to_) private {
     achievements_[new_achievment.id] = new_achievment;
     owners_[new_achievment.id] = to_;
+    emit Minted(to_, new_achievment.id);
   }
 
   function safeTransfer(uint256 token_id_, address to_) private {
     owners_[token_id_] = to_;
+    emit Transfered(msg.sender, to_, token_id_);
   }
 
-  function mint(string memory name_, string memory description_, string memory baseURI_, address to_) public {
-    if (!super_manager.isSuperUser(msg.sender)) {
-      require((sub_manager.getSubscribersAmount(msg.sender) / unique_manager.getUniqueUsersCnt()) * 100 >= 15, "not enough subscriptions to mint!");
-    }
+  function mint(string memory name_, string memory description_, string memory baseURI_, address to_) public enoughSubscribers {
     total_token_id_++;
     Achievement memory new_achievement = Achievement(
       total_token_id_, name_, description_, baseURI_
@@ -48,9 +70,7 @@ contract MyToken {
     safeMint(new_achievement, to_);
   }
 
-  function transfer(uint256 token_id_, address to_) public {
-    require(token_id_ <= total_token_id_, "invalid token id!");
-    require(owners_[token_id_] == msg.sender, "you are not the owener of token!");
+  function transfer(uint256 token_id_, address to_) public isOwner validToken {
     safeTransfer(token_id_, to_);
   }
 
