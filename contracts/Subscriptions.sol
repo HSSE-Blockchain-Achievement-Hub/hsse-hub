@@ -24,16 +24,21 @@ contract Subscribers {
         return is_already_subscriber_[msg.sender][to_];
     }
 
+    event Sub(address indexed from_, address indexed to_);
+    event UnSub(address indexed from_, address indexed to_);
+
     function safeSub(address from_, address to_) private {
         is_already_subscriber_[from_][to_] = true;
         ++subscribers_amount_[to_];
         unique_manager.addCount(from_);
         unique_manager.addCount(to_);
+        emit Sub(from_, to_);
     }
 
     function safeUnsub(address from_, address to_) private {
         is_already_subscriber_[from_][to_] = false;
         --subscribers_amount_[to_];
+        emit UnSub(from_, to_);
     }
 
     function subscribeOn(address to_) public {

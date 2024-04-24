@@ -95,6 +95,10 @@ contract SuperUsers {
         unique_manager.addCount(msg.sender);
     }
 
+    event BecomeSuperUser(address indexed user_);
+    event RemoveSuperUser(address indexed user_);
+    event VotingEnded(Voting indexed voting_, bool indexed result);
+
     function summarizeVoting(uint256 voting_number)
         public
         validVoting(voting_number)
@@ -112,6 +116,10 @@ contract SuperUsers {
             ((votings_[voting_number].forVotes + votings_[voting_number].againstVotes) / unique_manager.getUniqueUsersCnt()) * 100 >= 15
         ) {
             is_super_user_[votings_[voting_number].user] = true;
+            emit BecomeSuperUser(votings_[voting_number].user);
+            emit VotingEnded(votings_[voting_number], true);
+        } else {
+            emit VotingEnded(votings_[voting_number], false);
         }
     }
 }
