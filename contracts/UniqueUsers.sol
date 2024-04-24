@@ -8,14 +8,6 @@ contract UniqueUsers {
   mapping (address => bool) private can_call_;
   address private contact_owner_;
 
-
-  constructor(address[] memory can_call_contacts_) {
-    contact_owner_ = msg.sender;
-    for (uint256 i = 0; i < can_call_contacts_.length; ++i) {
-      can_call_[can_call_contacts_[i]] = true;
-    }
-  }
-
   modifier Callable(address contract_candidate_) {
     require(can_call_[contract_candidate_], "can't call function from that contract!");
     _;
