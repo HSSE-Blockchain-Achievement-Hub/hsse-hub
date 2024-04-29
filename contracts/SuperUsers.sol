@@ -2,14 +2,17 @@
 pragma solidity ^0.8.0;
 
 import "./UniqueUsers.sol";
+import "./Subscriptions.sol";
 
 contract SuperUsers {
     UniqueUsers private unique_manager;
+    Subscribers private subscriptions_manager;
 
     mapping(address => bool) private is_super_user_;
 
-    constructor(address _uniqueUsers, address[] memory super_users) {
+    constructor(address _uniqueUsers, address _subscriptions, address[] memory super_users) {
         unique_manager = UniqueUsers(_uniqueUsers);
+        subscriptions_manager = Subscribers(_subscriptions);
 
         for (uint256 i = 0; i < super_users.length; ++i) {
             is_super_user_[super_users[i]] = true;
@@ -28,20 +31,41 @@ contract SuperUsers {
 
     struct Voting {
         address user;
+        uint256 participated_users;
         uint256 againstVotes;
         uint256 forVotes;
         uint256 votingStarts;
         bool executed;
+        bool is_new_super_added; // if false, then voting's for taking away super user rights
     }
 
-    function setVoting(address user) public {
+    modifier has5Subs(address user) {
+        require(subscriptions_manager.getSubscribersAmount(user) >= 5, "You don;t have enought subscribers");
+        _;
+    }
+
+    function setVotingForNewSuperUser(address user) public has5Subs(msg.sender) {
         require(
             is_super_user_[user] == false,
             "This address's already a super user"
         );
         ++current_voting_number_;
 
-        Voting memory newVoting = Voting(user, 0, 0, block.timestamp, false);
+        Voting memory newVoting = Voting(user, 0, 0, 0, block.timestamp, false, true);
+
+        votings_[current_voting_number_] = newVoting;
+
+        unique_manager.addCount(user);
+    }
+
+    function setVotingForTakingAwaySuperUserRights(address user) public has5Subs(msg.sender) {
+        require(
+            is_super_user_[user] == true,
+            "This address's not a super user"
+        );
+        ++current_voting_number_;
+
+        Voting memory newVoting = Voting(user, 0, 0, 0, block.timestamp, false, false);
 
         votings_[current_voting_number_] = newVoting;
 
@@ -78,9 +102,11 @@ contract SuperUsers {
         onlyUnvoted(voting_number)
         hasNotFinished(voting_number)
         validVoting(voting_number)
+        has5Subs(msg.sender)
     {
         has_voted_[voting_number][msg.sender] = true;
-        ++votings_[voting_number].forVotes;
+        votings_[voting_number].forVotes += subscriptions_manager.getSubscribersAmount(msg.sender);
+        ++votings_[voting_number].participated_users;
         unique_manager.addCount(msg.sender);
     }
 
@@ -89,9 +115,11 @@ contract SuperUsers {
         onlyUnvoted(voting_number)
         hasNotFinished(voting_number)
         validVoting(voting_number)
+        has5Subs(msg.sender)
     {
         has_voted_[voting_number][msg.sender] = true;
-        ++votings_[voting_number].againstVotes;
+        votings_[voting_number].againstVotes += subscriptions_manager.getSubscribersAmount(msg.sender);
+        ++votings_[voting_number].participated_users;
         unique_manager.addCount(msg.sender);
     }
 
@@ -111,13 +139,16 @@ contract SuperUsers {
         );
         votings_[voting_number].executed = true;
         if (
-            votings_[voting_number].forVotes >
-            votings_[voting_number].againstVotes &&
-            ((votings_[voting_number].forVotes + votings_[voting_number].againstVotes) / unique_manager.getUniqueUsersCnt()) * 100 >= 15
+            votings_[voting_number].forVotes > votings_[voting_number].againstVotes &&
+            ((votings_[voting_number].participated_users) / unique_manager.getUniqueUsersCnt()) * 100 >= 15
         ) {
-            is_super_user_[votings_[voting_number].user] = true;
-            emit BecomeSuperUser(votings_[voting_number].user);
+            is_super_user_[votings_[voting_number].user] = votings_[voting_number].is_new_super_added;
             emit VotingEnded(votings_[voting_number], true);
+            if (votings_[voting_number].is_new_super_added) {
+                emit BecomeSuperUser(votings_[voting_number].user);
+            } else {
+                emit RemoveSuperUser(votings_[voting_number].user);
+            }
         } else {
             emit VotingEnded(votings_[voting_number], false);
         }
