@@ -42,20 +42,20 @@ contract Subscribers {
     }
 
     function subscribeOn(address to_) public {
+        require(msg.sender != to_, "You can't subscribed on yourself!");
         require(
             !isAlreadySubscriber(msg.sender, to_),
             "You're already subscribed"
         );
-        require(msg.sender != to_, "You can't subscribed on yourself!");
         safeSub(msg.sender, to_);
     }
 
     function unsubscribeFrom(address from_) public {
+        require(msg.sender != from_, "You can't unsubscribe from yourself!");
         require(
             isAlreadySubscriber(msg.sender, from_),
             "You're haven't been subscribed"
         );
-        require(msg.sender != from_, "You can't unsubscribe from yourself!");
         safeUnsub(msg.sender, from_);
     }
 
