@@ -11,6 +11,11 @@ contract Usernames {
     _;
   }
 
+  modifier validUsername(string memory username_) {
+    require(bytes(username_).length != 0, "empty username is not valid!");
+    _;
+  }
+
   function hasUsername() public view returns (bool) {
     bytes memory bytestring_ = bytes(usernames_[msg.sender]);
     return bytestring_.length != 0;   
@@ -33,7 +38,10 @@ contract Usernames {
     return usernames_[user_];
   }
 
-  function setUsername(string memory name_) external isUnique(name_) {
+  function setUsername(string memory name_) external isUnique(name_) validUsername(name_) {
+    if (hasUsername(msg.sender)) {
+      owners_[usernames_[msg.sender]] = address(0);
+    }
     usernames_[msg.sender] = name_;
   }
 }
