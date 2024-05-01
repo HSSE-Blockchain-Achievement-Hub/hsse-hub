@@ -68,6 +68,7 @@ contract MyToken {
       total_token_id_, name_, description_, baseURI_
     );
     safeMint(new_achievement, to_);
+    unique_manager.addCount(msg.sender);
   }
 
   function transfer(uint256 token_id_, address to_) public isOwner validToken {
