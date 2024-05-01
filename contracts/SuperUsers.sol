@@ -100,9 +100,9 @@ contract SuperUsers {
 
     function voteFor(uint256 voting_number)
         public
-        onlyUnvoted(voting_number)
-        hasNotFinished(voting_number)
         validVoting(voting_number)
+        hasNotFinished(voting_number)
+        onlyUnvoted(voting_number)
         has5SubsOrSuperUser(msg.sender)
     {
         has_voted_[voting_number][msg.sender] = true;
@@ -113,9 +113,9 @@ contract SuperUsers {
 
     function voteAgainst(uint256 voting_number)
         public
-        onlyUnvoted(voting_number)
-        hasNotFinished(voting_number)
         validVoting(voting_number)
+        hasNotFinished(voting_number)
+        onlyUnvoted(voting_number)
         has5SubsOrSuperUser(msg.sender)
     {
         has_voted_[voting_number][msg.sender] = true;
