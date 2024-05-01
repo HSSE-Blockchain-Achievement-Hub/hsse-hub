@@ -141,7 +141,7 @@ contract SuperUsers {
         votings_[voting_number].executed = true;
         if (
             votings_[voting_number].forVotes > votings_[voting_number].againstVotes &&
-            ((votings_[voting_number].participated_users) / unique_manager.getUniqueUsersCnt()) * 100 >= 15
+            ((votings_[voting_number].participated_users) * 100 / unique_manager.getUniqueUsersCnt()) >= 15
         ) {
             is_super_user_[votings_[voting_number].user] = votings_[voting_number].is_new_super_added;
             emit VotingEnded(votings_[voting_number], true);
