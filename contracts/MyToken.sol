@@ -16,6 +16,7 @@ contract MyToken {
     string name;
     string description;
     string baseURI;
+    bool is_private;
   }  
 
   constructor(address _sub, address _superUsers, address _uniqueUsers) {
@@ -62,10 +63,10 @@ contract MyToken {
     emit Transfered(msg.sender, to_, token_id_);
   }
 
-  function mint(string memory name_, string memory description_, string memory baseURI_, address to_) public enoughSubscribers {
+  function mint(string memory name_, string memory description_, string memory baseURI_, bool is_private, address to_) public enoughSubscribers {
     total_token_id_++;
     Achievement memory new_achievement = Achievement(
-      total_token_id_, name_, description_, baseURI_
+      total_token_id_, name_, description_, baseURI_, is_private
     );
     safeMint(new_achievement, to_);
     unique_manager.addCount(msg.sender);
