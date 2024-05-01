@@ -38,12 +38,14 @@ contract SuperUsers {
         bool is_new_super_added; // if false, then voting's for taking away super user rights
     }
 
-    modifier has5Subs(address user) {
-        require(subscriptions_manager.getSubscribersAmount(user) >= 5, "You don't have enought subscribers");
+    modifier has5SubsOrSuperUser(address user) {
+        if (!isSuperUser(user)) {
+            require(subscriptions_manager.getSubscribersAmount(user) >= 5, "You don't have enought subscribers");
+        }
         _;
     }
 
-    function setVotingForNewSuperUser(address user) public has5Subs(msg.sender) {
+    function setVotingForNewSuperUser(address user) public has5SubsOrSuperUser(msg.sender) {
         require(
             is_super_user_[user] == false,
             "This address's already a super user"
@@ -57,7 +59,7 @@ contract SuperUsers {
         unique_manager.addCount(user);
     }
 
-    function setVotingForTakingAwaySuperUserRights(address user) public has5Subs(msg.sender) {
+    function setVotingForTakingAwaySuperUserRights(address user) public has5SubsOrSuperUser(msg.sender) {
         require(
             is_super_user_[user] == true,
             "This address's not a super user"
@@ -101,7 +103,7 @@ contract SuperUsers {
         onlyUnvoted(voting_number)
         hasNotFinished(voting_number)
         validVoting(voting_number)
-        has5Subs(msg.sender)
+        has5SubsOrSuperUser(msg.sender)
     {
         has_voted_[voting_number][msg.sender] = true;
         votings_[voting_number].forVotes += subscriptions_manager.getSubscribersAmount(msg.sender);
@@ -114,7 +116,7 @@ contract SuperUsers {
         onlyUnvoted(voting_number)
         hasNotFinished(voting_number)
         validVoting(voting_number)
-        has5Subs(msg.sender)
+        has5SubsOrSuperUser(msg.sender)
     {
         has_voted_[voting_number][msg.sender] = true;
         votings_[voting_number].againstVotes += subscriptions_manager.getSubscribersAmount(msg.sender);
