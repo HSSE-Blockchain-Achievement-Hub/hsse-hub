@@ -16,7 +16,6 @@ contract SuperUsers {
 
         for (uint256 i = 0; i < super_users.length; ++i) {
             is_super_user_[super_users[i]] = true;
-            unique_manager.addCount(super_users[i]);
         }
     }
 
@@ -40,7 +39,7 @@ contract SuperUsers {
     }
 
     modifier has5Subs(address user) {
-        require(subscriptions_manager.getSubscribersAmount(user) >= 5, "You don;t have enought subscribers");
+        require(subscriptions_manager.getSubscribersAmount(user) >= 5, "You don't have enought subscribers");
         _;
     }
 
