@@ -30,14 +30,17 @@ contract MyToken {
   mapping (uint256 => address) private owners_;
 
 
-  modifier isOwner(uint256 token_id_, address candidate_) {
+  modifier isTokenOwner(uint256 token_id_, address candidate_) {
     require(owners_[token_id_] == candidate_, "wrong owner of the token!");
     _;
   }
 
   modifier enoughSubscribers(address candidate_) {
     if (!super_manager.isSuperUser(candidate_)) {
-      require((sub_manager.getSubscribersAmount(candidate_) / unique_manager.getUniqueUsersCnt()) * 100 >= 15, "not enough subscriptions to mint!");
+      require(
+        unique_manager.getUniqueUsersCnt() > 0 &&
+        sub_manager.getSubscribersAmount(candidate_) * 100 / unique_manager.getUniqueUsersCnt() >= 15, 
+        "not enough subscriptions to mint!");
     }
     _;
   }
@@ -63,7 +66,9 @@ contract MyToken {
     emit Transfered(msg.sender, to_, token_id_);
   }
 
-  function mint(string memory name_, string memory description_, string memory baseURI_, bool is_private, address to_) public enoughSubscribers {
+  function mint(string memory name_, string memory description_, 
+                string memory baseURI_, bool is_private, address to_) 
+      public enoughSubscribers(msg.sender) {
     total_token_id_++;
     Achievement memory new_achievement = Achievement(
       total_token_id_, name_, description_, baseURI_, is_private
@@ -72,7 +77,8 @@ contract MyToken {
     unique_manager.addCount(msg.sender);
   }
 
-  function transfer(uint256 token_id_, address to_) public isOwner validToken {
+  function transfer(uint256 token_id_, address to_) 
+      public validToken(token_id_) isTokenOwner(token_id_, msg.sender) {
     safeTransfer(token_id_, to_);
   }
 

@@ -13,7 +13,9 @@ contract UniqueUsers {
   }
 
   modifier Callable(address contract_candidate_) {
-    require(can_call_[contract_candidate_] || contract_candidate_ == contact_owner_, "can't call function from that address!");
+    require(
+      can_call_[contract_candidate_] || contract_candidate_ == contact_owner_, 
+      "not allowed call function from that address!");
     _;
   }
 
@@ -22,8 +24,10 @@ contract UniqueUsers {
     _;
   }
 
-  function addTrustContract(address contract_) public isOwner(msg.sender) {
-    can_call_[contract_] = true;
+  function addTrustContracts(address[] memory contracts_) public isOwner(msg.sender) {
+    for (uint256 i = 0; i < contracts_.length; ++i) {
+      can_call_[contracts_[i]] = true;
+    }
   }
 
   event newUniqueUser(address user_);
@@ -38,5 +42,9 @@ contract UniqueUsers {
 
   function getUniqueUsersCnt() public view returns(uint256) {
     return unique_users_cnt_;
+  }
+
+  function canCall(address candidate_) public view returns(bool) {
+    return can_call_[candidate_];
   }
 }   
