@@ -24,8 +24,8 @@ describe("SuperUsers", function () {
         await unique_useres.addTrustContract(await subscribers.getAddress());
         await unique_useres.addTrustContract(await super_users.getAddress());
 
-        for (var from_ of [user1, user2, user3, user4, user5]) {
-            for (var to_ of [has6subs_1, has5subs_1, has5subs_2]) {
+        for (let from_ of [user1, user2, user3, user4, user5]) {
+            for (let to_ of [has6subs_1, has5subs_1, has5subs_2]) {
                 await subscribers.connect(from_).subscribeOn(to_);
             }
         }
@@ -113,7 +113,7 @@ describe("SuperUsers", function () {
     })
 
     it("summarize positive voting for new super user", async function () {
-        const { has5subs_1, has5subs_2, has6subs_1, super_users, unique_useres } = await loadFixture(deploy);
+        const { has5subs_1, has5subs_2, has6subs_1, super_users } = await loadFixture(deploy);
         await super_users.connect(has6subs_1).setVotingForNewSuperUser(has6subs_1);
 
         await super_users.connect(has6subs_1).voteFor(1);
@@ -127,7 +127,7 @@ describe("SuperUsers", function () {
     })
 
     it("summarize negative voting for new super user", async function () {
-        const { has5subs_1, has5subs_2, has6subs_1, super_users, unique_useres } = await loadFixture(deploy);
+        const { has5subs_1, has5subs_2, has6subs_1, super_users } = await loadFixture(deploy);
         await super_users.connect(has6subs_1).setVotingForNewSuperUser(has6subs_1);
 
         await super_users.connect(has6subs_1).voteFor(1);
