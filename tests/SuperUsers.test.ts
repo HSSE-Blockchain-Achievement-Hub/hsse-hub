@@ -21,8 +21,7 @@ describe("SuperUsers", function () {
             [start_super_user.address]
         );
 
-        await unique_useres.addTrustContract(await subscribers.getAddress());
-        await unique_useres.addTrustContract(await super_users.getAddress());
+        await unique_useres.addTrustContracts([await subscribers.getAddress(), await super_users.getAddress()]);
 
         for (let from_ of [user1, user2, user3, user4, user5]) {
             for (let to_ of [has6subs_1, has5subs_1, has5subs_2]) {
