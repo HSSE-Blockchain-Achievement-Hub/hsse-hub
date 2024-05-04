@@ -13,7 +13,7 @@ describe("Subscribers", function() {
     const subscribers = await subscribersFactory.deploy(await unique_useres.getAddress());
     await subscribers.waitForDeployment();
 
-    await unique_useres.addTrustContract(await subscribers.getAddress());
+    await unique_useres.addTrustContracts([await subscribers.getAddress()]);
     
     return { from_, to_, subscribers }
   }
@@ -27,7 +27,7 @@ describe("Subscribers", function() {
 
   it("Before subscription", async function() {
     const { from_, to_, subscribers } = await loadFixture(deploy);
-    expect (await subscribers.connect(from_).isAlreadySubscriber(to_)).to.eq(false);
+    expect (await subscribers.connect(from_)['isAlreadySubscriber(address)'](to_)).to.eq(false);
     expect (await subscribers.connect(from_).getSubscribersAmount(to_)).to.eq(0);
   });
 
@@ -51,7 +51,7 @@ describe("Subscribers", function() {
   it("After subscription", async function() {
     const { from_, to_, subscribers } = await loadFixture(deploy);
     await subscribers.connect(from_).subscribeOn(to_);
-    expect (await subscribers.connect(from_).isAlreadySubscriber(to_)).to.eq(true);
+    expect (await subscribers.connect(from_)['isAlreadySubscriber(address)'](to_)).to.eq(true);
     expect (await subscribers.connect(from_).getSubscribersAmount(to_)).to.eq(1);
   });
 
@@ -59,7 +59,7 @@ describe("Subscribers", function() {
     const { from_, to_, subscribers } = await loadFixture(deploy);
     await subscribers.connect(from_).subscribeOn(to_);
     await subscribers.connect(from_).unsubscribeFrom(to_);
-    expect (await subscribers.connect(from_).isAlreadySubscriber(to_)).to.eq(false);
+    expect (await subscribers.connect(from_)['isAlreadySubscriber(address)'](to_)).to.eq(false);
     expect (await subscribers.connect(from_).getSubscribersAmount(to_)).to.eq(0);
   })
 })
