@@ -20,6 +20,7 @@ function setSubmitButtonState(isFormValid) {
 form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     addTransfer(name.value);
+    setSubmitButtonState(false);
     name.value = '';
 });
 
