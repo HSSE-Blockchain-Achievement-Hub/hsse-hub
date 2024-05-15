@@ -1,15 +1,10 @@
 const authorizarionButton = document.querySelector(".authorization__button");
+
 authorizarionButton.addEventListener("click", async () => {
     await init();
 })
 
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
+// Вход в аккаунт Metamask
 let init = async () => {
     if (window.ethereum) {
         // Входим в тестировочную систему
