@@ -388,10 +388,6 @@ input.modal__field_description::placeholder {
   border-radius: 40px 40px 0 0;
 }
 
-.modal__label {
-  display: flex;
-}
-
 .modal__field {
   background-color: #ffffff;
   border: #044334 2px solid;
@@ -417,6 +413,7 @@ input.modal__field_description::placeholder {
   height: 3vw;
   border-radius: 10px 10px 10px 10px;
   font-size: 1.5vw;
+  cursor: pointer;
 }
 
 .hide {
@@ -434,7 +431,7 @@ input.modal__field_description::placeholder {
   margin: auto;
 }
 
-.setting {
+.settings {
   display: flex;
   background-color: #D3FFF7;
   height: 25vw;
