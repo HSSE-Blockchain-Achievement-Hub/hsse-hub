@@ -13,13 +13,16 @@ let initialization = false,
 ethereumButton.addEventListener('click', async () => {
     await init()
     await getInfo()
+    await web3.eth.getGasPrice().then(count => {
+        return parseInt(count, 10);
+    }).then(console.log);
     await web3.eth.getTransactionCount(account, 'pending').then(count => {
         return parseInt(count, 10);
     }).then(console.log);
     await web3.eth.getChainId().then(count => {
         return parseInt(count, 10);
     }).then(console.log);
-    // await setNickname("nickname")
+    // await setNickname("TEST_WITHOUT_DATA")
 })
 
 let init = async () => {
@@ -59,12 +62,13 @@ let setNickname = async (nickname) => {
             return parseInt(count, 10);
         }),
         'from': account,
-        'gasPrice': 5936103755,
+        'gasPrice': await web3.eth.getGasPrice().then(count => {
+            return parseInt(count, 10);
+        }),
         'nonce': await web3.eth.getTransactionCount(account, 'pending').then(count => {
             return parseInt(count, 10);
         }),
-        'to': usernames_address,
-        'data': '0xed59313a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000044747474700000000000000000000000000000000000000000000000000000000'
+        'to': usernames_address
     }
     if (contract) {
         await contract.methods.setUsername(nickname).send(usernames_dict_transaction)
