@@ -1,9 +1,10 @@
 const addButton = document.querySelector('.input__btn_action_add');
 const form = document.forms.transfer;
-const name = form.elements.name;
+const key = form.elements.key;
 const isValid = true;
 
-function addTransfer(recieverValue) {
+// Заглушка для бэкенда
+function addTransfer(nameValue) {
 
 }
 
@@ -19,12 +20,12 @@ function setSubmitButtonState(isFormValid) {
 
 form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    addTransfer(name.value);
+    addTransfer(key.value);
     setSubmitButtonState(false);
-    name.value = '';
+    key.value = '';
 });
 
 form.addEventListener('input', function (evt) {
-    const isValid = name.value.length > 0;
+    const isValid = (key.value[0] === '@' && key.value.length > 1) || key.value.length === 42;
     setSubmitButtonState(isValid);
 });
