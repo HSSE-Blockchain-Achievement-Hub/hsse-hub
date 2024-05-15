@@ -417,7 +417,6 @@ input.modal__field_description::placeholder {
   height: 3vw;
   border-radius: 10px 10px 10px 10px;
   font-size: 1.5vw;
-  cursor: pointer;
 }
 
 .hide {
@@ -435,11 +434,38 @@ input.modal__field_description::placeholder {
   margin: auto;
 }
 
-.input__btn_disabled {
-  background-color: #f1f1f1;
-  cursor: default;
+.setting {
+  display: flex;
+  background-color: #D3FFF7;
+  height: 25vw;
+  border-radius: 0 0 40px 40px;
+  flex-direction: column;
 }
 
-input {
-  padding-left: 2%;
+.modal-setting-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.5;
+  font-size: 1.5vw;
+  font-weight: 700;
+  margin: auto;
+}
+
+.modal-setting-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 15px;
+  padding-top: 5%;
+  background-color: #D3FFF7;
+  border-radius: 40px 40px 0 0;
 }
