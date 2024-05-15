@@ -27,7 +27,7 @@
   }
 
   .menu__item_name {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     text-align: center;
     margin-left: 0;
     font-weight: 500;
@@ -39,7 +39,6 @@
     width: 2%;
     margin-right: 7px;
   }
-
   .header {
     display: flex;
     background-color: #ffffff;
