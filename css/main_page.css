@@ -50,7 +50,7 @@
   }
 
   .menu__item_name {
-    font-size: 1.5vw;
+    font-size: 100%;
     text-align: center;
     margin-left: 0;
     font-weight: 500;
