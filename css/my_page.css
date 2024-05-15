@@ -469,3 +469,12 @@ input.modal__field_description::placeholder {
   background-color: #D3FFF7;
   border-radius: 40px 40px 0 0;
 }
+
+.input__btn_disabled {
+  background-color: #f1f1f1;
+  cursor: default;
+}
+
+input {
+  padding-left: 2%;
+}
