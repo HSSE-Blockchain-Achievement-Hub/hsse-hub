@@ -13,7 +13,7 @@ body {
     min-height: 70px;
     padding-top: 1%;
     padding-bottom: 1%;
-    background-color:#30E1A1;
+    background-color: #30E1A1;
     align-items: center;
     margin: auto;
     white-space: nowrap;
@@ -144,7 +144,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1050;
     opacity: 0;
     -webkit-transition: opacity 200ms ease-in;
@@ -182,11 +182,11 @@ body {
     background-color: #fff;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.2);
+    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 40px 40px 40px 40px;
     outline: 0;
-    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
-    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 }
 
 .modal-header {
@@ -207,6 +207,7 @@ body {
     background-color: #30E1A1;
     border-radius: 40px 40px 0 0;
 }
+
 .modal-title {
     margin-top: 0;
     margin-bottom: 0;
@@ -355,6 +356,6 @@ body {
     cursor: default;
 }
 
-.modal__field::placeholder {
+input {
     padding-left: 3%;
 }
