@@ -86,32 +86,20 @@
           <h3 class="modal-create-title">НАЗВАНИЕ ДОСТИЖЕНИЯ</h3>
           <a href="#close" title="Close" class="close">×</a>
     </div>
-    <form class="modal-body create" action="" method="get">   
-
-        <label class="modal__label">
-            <input class="modal__field" type="text" name="name" placeholder="Название">
-        </label>
-
-        <label class="modal__label">
-            <input class="modal__field" type="text" key="key" placeholder="Ключ получателя">
-        </label>
-
-        <label class="modal__label">
-            <input class="modal__field" type="text" ref="ref" placeholder="Ссылка на картинку">
-        </label>
-
-        <label class="modal__label">
-            <input class="modal__field modal__field_description" type="text" descr="descr" placeholder="Описание">
-        </label>
+    <form class="modal-body create" name="create" action="" method="get">
+        <input class="modal__field" type="text" name="name" placeholder="Название">
+        <input class="modal__field" type="text" name="key" placeholder="Ключ/ник получателя">
+        <input class="modal__field" type="url" name="ref" placeholder="Ссылка на картинку">
+        <input class="modal__field modal__field_description" type="text" name="descr" placeholder="Описание">
 
         <label class="hide">
-            <input class="checkmark" type="checkbox" checked="checked">  Скрыть </input>
+          <input class="checkmark" type="checkbox" name="checked"> Скрыть </input>
         </label>
 
-        <button class="modal__button" type="submit">
-            Передать
+        <button disabled class="input__btn_disabled modal__button input__btn_action_add" type="submit">
+          Передать
         </button>
-</form>
+      </form>
       </div>
     </div>
   </div>
@@ -141,6 +129,6 @@
     </div>
   </div>
 
-<script src="index.js"></script>
+<script src="js/creation_form.js"></script>
 </body>
 </html>
