@@ -1,10 +1,11 @@
-function getCookie(name) {
+async function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
-function checkAutho() {
+
+async function checkAutho() {
     let menuSignUp = document.querySelector('.menu__item_signup');
     let menuWallet = document.querySelector('.menu__wallet');
     let walletAddress = menuWallet.querySelector('.wallet__address');
@@ -28,10 +29,7 @@ function checkAutho() {
 }
 
 
-// document.cookie = "initialization=true; secure";
-// document.cookie = "account=" + "0xadsioajfguierhgtioewrnjgifowearsegefhedfherhdsfzhdfsgjrthsrthsre" + "; secure";
-// document.cookie = "balance=" + "0.00001";
-// alert(document.cookie);
-await document.cookie = "user=John"; // обновляем только куки с именем 'user'
-alert(document.cookie);
-// checkAutho();
+document.cookie = "initialization=true; secure";
+document.cookie = "account=" + "0xadsioajfguierhgtioewrnjgifowearsegefhedfherhdsfzhdfsgjrthsrthsre" + "; secure";
+document.cookie = "balance=" + "0.00001";
+checkAutho();
