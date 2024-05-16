@@ -34,7 +34,8 @@ body {
 .menu__image {
     height: 4vw;
     width: 4vw;
-    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .search {
