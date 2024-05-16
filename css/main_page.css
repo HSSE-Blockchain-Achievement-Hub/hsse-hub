@@ -62,7 +62,7 @@ body {
 }
 
 .menu__item_signin {
-    min-width: 100px;
+    width: 7vw;
     font-size: 100%;
     font-weight: 600;
     text-align: center;
@@ -75,7 +75,7 @@ body {
 }
 
 .menu__item_signup {
-    min-width: 150px;
+    width: 10vw;
     font-size: 100%;
     font-weight: 600;
     text-align: center;
@@ -92,6 +92,7 @@ body {
 .menu__item_able {
     background-color: #CD5C5C;
     border: solid #CD5C5C;
+    width: 7vw;
 }
 
 .menu__image {
@@ -127,8 +128,13 @@ body {
     font-size: 1.2vw;
 }
 
+.wallet__link_my_page {
+    width: 6%;
+    margin-top: 0.15vw;
+}
+
 .wallet__image {
-    width: 7%;
+    width: 100%;
 }
 
 .wallet__separator {
