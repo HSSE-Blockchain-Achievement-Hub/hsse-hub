@@ -21,9 +21,9 @@ let init = async () => {
                 console.error(err);
             }
         });
-        document.cookie = "initialization=true; secure"
+        document.cookie = "initialization=true; secure";
         document.cookie = "account=" + accounts[0] + "; secure";
-        document.cookie = "balace=" + await web3.eth.getBalance(accounts[0]).then(count => {
+        document.cookie = "balance=" + await web3.eth.getBalance(accounts[0]).then(count => {
             return (parseInt(count, 10) / 10 ** 18).toFixed(5);
         });
         alert(document.cookie);
