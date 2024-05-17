@@ -54,7 +54,7 @@ contract Subscribers {
         require(msg.sender != from_, "You can't unsubscribe from yourself!");
         require(
             isAlreadySubscriber(msg.sender, from_),
-            "You're haven't been subscribed"
+            "You haven't been subscribed"
         );
         safeUnsub(msg.sender, from_);
     }
