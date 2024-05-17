@@ -24,6 +24,7 @@ contract SuperUsers {
     }
 
     uint256 public constant voting_duration = 2 days;
+    uint256 public constant summarizing_voting_duration = 2 days;
     mapping(uint256 => Voting) private votings_;
     mapping(uint256 => mapping(address => bool)) private has_voted_;
     uint256 private current_voting_number_ = 0;
@@ -138,6 +139,7 @@ contract SuperUsers {
                 block.timestamp,
             "Voting hasn't finished"
         );
+        require(votings_[voting_number].votingStarts + voting_duration + summarizing_voting_duration > block.timestamp, "It's too late to summarize this voting");
         votings_[voting_number].executed = true;
         if (
             votings_[voting_number].forVotes > votings_[voting_number].againstVotes &&
