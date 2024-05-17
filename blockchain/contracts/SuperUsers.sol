@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/utils/Strings.sol";
+// need "npm install @openzeppelin/contracts" for installation
+
 import "./UniqueUsers.sol";
 import "./Subscriptions.sol";
 
@@ -9,6 +12,7 @@ contract SuperUsers {
     Subscribers private subscriptions_manager;
 
     mapping(address => bool) private is_super_user_;
+    mapping(address => uint256) private current_voting_for_user;
 
     constructor(address _uniqueUsers, address _subscriptions, address[] memory super_users) {
         unique_manager = UniqueUsers(_uniqueUsers);
@@ -46,16 +50,36 @@ contract SuperUsers {
         _;
     }
 
+    function isNewVotingAvalible(address user) private {
+        uint256 voting_for_user = current_voting_for_user[user];
+        if (voting_for_user != 0) {
+            if (votings_[voting_for_user].votingStarts + voting_duration > block.timestamp) {
+                require(false, string.concat("Voting number ", Strings.toString(voting_for_user), " for this user is in process"));
+            }
+            else if (votings_[voting_for_user].votingStarts + voting_duration + summarizing_voting_duration > block.timestamp) {
+                require(false, string.concat("Voting number ", Strings.toString(voting_for_user), " for this user wasn't summurized"));
+            }
+            else {
+                current_voting_for_user[user] = 0;
+                votings_[voting_for_user].executed = true;
+                emit VotingEnded(votings_[voting_for_user], false);
+            }
+        }
+    }
+
     function setVotingForNewSuperUser(address user) public has5SubsOrSuperUser(msg.sender) {
         require(
             is_super_user_[user] == false,
             "This address's already a super user"
         );
+        isNewVotingAvalible(user);
         ++current_voting_number_;
 
         Voting memory newVoting = Voting(user, 0, 0, 0, block.timestamp, false, true);
 
         votings_[current_voting_number_] = newVoting;
+
+        current_voting_for_user[user] = current_voting_number_;
 
         unique_manager.addCount(user);
     }
@@ -65,11 +89,14 @@ contract SuperUsers {
             is_super_user_[user] == true,
             "This address's not a super user"
         );
+        isNewVotingAvalible(user);
         ++current_voting_number_;
 
         Voting memory newVoting = Voting(user, 0, 0, 0, block.timestamp, false, false);
 
         votings_[current_voting_number_] = newVoting;
+
+        current_voting_for_user[user] = current_voting_number_;
 
         unique_manager.addCount(user);
     }
@@ -139,7 +166,13 @@ contract SuperUsers {
                 block.timestamp,
             "Voting hasn't finished"
         );
-        require(votings_[voting_number].votingStarts + voting_duration + summarizing_voting_duration > block.timestamp, "It's too late to summarize this voting");
+        if (votings_[voting_number].votingStarts + voting_duration + summarizing_voting_duration < block.timestamp) {
+            current_voting_for_user[votings_[voting_number].user] = 0;
+            votings_[voting_number].executed = true;
+            emit VotingEnded(votings_[voting_number], false);
+            require(false, "It's too late to summarize this voting");
+        }
+        current_voting_for_user[votings_[voting_number].user] = 0;
         votings_[voting_number].executed = true;
         if (
             votings_[voting_number].forVotes > votings_[voting_number].againstVotes &&
