@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/my_achievements.css">
+<link rel="icon" href="img/Vector.png">
+<title>Достижения</title>
+<body>
+<menu class="menu">
+  <a href="main_page.html" class="menu__image">
+    <svg viewBox="0 0 216 212" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M108 0L71.6804 35.647L106.313 69.6566L142.651 33.9908L108 0ZM156.516 47.6172L120.196 83.3018L139.085 101.841L175.577 66.3253L156.516 47.6172ZM57.7777 49.2923L0 106L34.6705 140.01L92.4482 83.3018L57.7777 49.2923ZM189.46 79.9517L152.968 115.486L179.642 141.685L216 106L189.46 79.9517ZM106.313 96.9471L48.554 153.655L108 212L165.759 155.292L106.313 96.9471Z"
+            fill="#044334"/>
+    </svg>
+  </a>
+  <a href="#self" class="menu__item menu__name">Достижения @Nickname</a>
+  <a href="my_page.html" class="menu__image">
+    <svg viewBox="0 0 156 131" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M109.718 28.17V0L155.138 45.42L109.718 90.84V62.324C56.2007 66.358 12.9647 94.229 2.45169 130.376C0.846695 124.863 -0.000305176 119.152 -0.000305176 113.305C-0.00131226 69.156 48.0267 32.818 109.718 28.17Z"
+            fill="#044334"/>
+    </svg>
+  </a>
+</menu>
+
+<div class="search">
+  <svg class="search__loop" width="97" height="98" viewBox="0 0 97 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M42.4868 6.02936C62.6202 6.02936 79.0039 22.606 79.0039 42.947C79.0039 52.0149 75.7353 60.3154 70.3423 66.7469L90.1046 86.7132C90.3945 86.9962 90.6256 87.3349 90.7843 87.7093C90.9431 88.0837 91.0263 88.4864 91.0292 88.8937C91.0321 89.301 90.9545 89.7046 90.8011 90.0813C90.6476 90.4579 90.4213 90.7997 90.1355 91.0869C89.8496 91.3741 89.5099 91.6008 89.1363 91.7538C88.7627 91.9068 88.3626 91.9829 87.9594 91.9778C87.5563 91.9726 87.1583 91.8863 86.7886 91.7238C86.4189 91.5613 86.085 91.3262 85.8064 91.0318L66.0559 71.0776C59.6887 76.5309 51.4665 79.8403 42.4868 79.8403C22.3533 79.8403 5.96967 63.288 5.96967 42.947C5.96967 22.606 22.3533 6.02936 42.4868 6.02936ZM42.4868 12.4717C25.7897 12.4717 12.3223 26.0778 12.3223 42.947C12.3223 59.8162 25.7897 73.4163 42.4868 73.4163C59.1838 73.4163 72.6513 59.8162 72.6513 42.947C72.6513 26.0778 59.1838 12.4717 42.4868 12.4717Z"
+          fill="#044334"/>
+  </svg>
+  <h2 class="search__word">Поиск</h2>
+  <svg class="search__filter" width="162" height="147" viewBox="0 0 162 147" fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_187_169)">
+      <path d="M161.408 0.126678H0.674175C0.476714 0.126678 0.476714 0.126678 0.279252 0.126678C0.0817911 0.126678 -0.11567 0.485034 0.0817911 0.84339L63.2694 78.9649V146.873L98.8124 135.048V78.9649L162 0.84339C162 0.84339 162 0.664212 162 0.485034C161.803 0.305856 161.605 0.126678 161.408 0.126678Z"
+            fill="#044334"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_187_169">
+        <rect width="162" height="147" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>
+</div>
+</div>
+
+<div class="achievements" id="achievements"></div>
+
+<div id="openTransfer" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-tranfer-header">
+        <h3 class="modal-transfer-title">НАЗВАНИЕ ДОСТИЖЕНИЯ</h3>
+        <a href="#close" title="Close" class="close">×</a>
+      </div>
+      <form class="modal-body transfer" name="transfer" action="" method="get">
+        <input class="modal__field" type="text" name="key" placeholder="Ключ/ник получателя">
+        <button disabled class="input__btn_disabled modal__button input__btn_action_add" type="submit">
+          Передать
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.8.0/web3.min.js" integrity="sha512-ezmwxlbrU+yplnt3MahXAQaNiiGS+5afDIgMIaFSVYN78y5yjiNl3pF9z/i7gunDB2ppegmfyjXlD/3HibuvXw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/common/cookies.js"></script>
+<script src="js/common/addresses.js"></script>
+<script src="js/common/abies.js"></script>
+<script src="js/common/contracts.js"></script>
+<script src="community/Users.js"></script>
+<script src="community/Username.js"></script>
+<script src="js/my_achievements/update_info.js"></script>
+<script src="js/my_achievements/transfer_form.js"></script>
+</body>
+</html>
