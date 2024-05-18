@@ -4,7 +4,7 @@ let nickname = document.querySelector(".menu__name");
 function createModal(id, title, description, owner, receivedFrom, token_id) {
     // Create modal container
     const modal = document.createElement('div');
-    modal.id = '#' + id;
+    modal.id = id;
     modal.className = 'modal';
 
     // Create modal dialog
@@ -150,7 +150,7 @@ function createCard(title, description, from, link, id) {
     // Create card container
     const card = document.createElement('div');
     card.className = 'card';
-    card.id = id;
+    card.id = '#' + id;
     // Create card image div
     const cardImage = document.createElement('div');
     cardImage.className = 'card__image';
