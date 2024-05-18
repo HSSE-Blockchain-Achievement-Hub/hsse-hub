@@ -2,9 +2,13 @@ let updateButton = document.querySelector('.input__btn_action_update');
 let settings_form = document.forms.settings;
 
 // Заглушка для бэкенда
-function updateSettings(nicknameValue) {
-    let nickname = document.querySelector('.header__information__center_heading');
+async function updateSettings(nicknameValue) {
     nickname.innerHTML = nicknameValue;
+    const usrnm = new Username();
+    await usrnm.set_username(nicknameValue);
+    nickname.innerHTML = await usrnm.get_username();
+    account.innerHTML = await getCookie("account");
+    role.innerHTML = await getCookie("role");
 }
 
 function setSubmitButtonState_settings(isFormValid) {
