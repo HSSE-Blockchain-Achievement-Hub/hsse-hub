@@ -144,11 +144,11 @@ function createModal(id, title, description, owner, receivedFrom, token_id) {
 }
 
 // Function to create a new card
-function createCard(title, description, from, link) {
+function createCard(title, description, from, link, id) {
     // Create card container
     const card = document.createElement('div');
     card.className = 'card';
-
+    card.id = id;
     // Create card image div
     const cardImage = document.createElement('div');
     cardImage.className = 'card__image';
@@ -214,9 +214,9 @@ function createCard(title, description, from, link) {
 }
 
 // Function to add a new card to the achievements div
-function addCardToAchievements(title, description, from, link) {
+function addCardToAchievements(title, description, from, link, id) {
     const achievements = document.getElementById('achievements');
-    const newCard = createCard(title, description, from, link);
+    const newCard = createCard(title, description, from, link, id);
     achievements.appendChild(newCard);
 }
 
@@ -230,18 +230,18 @@ async function updateSiteInfo() {
 
     for (let idx = 0; idx < all_achievements.length; idx++) {
         console.log(all_achievements[idx]);
-        addCardToAchievements(all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], all_achievements[idx]["minter"], '#achievement' + all_achievements[idx]["id"]);
+        addCardToAchievements(all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], all_achievements[idx]["minter"], '#achievement' + all_achievements[idx]["id"], all_achievements[idx]["id"]);
         createModal('achievement' + all_achievements[idx]["id"], all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], await usrnm.get_username(), all_achievements[idx]["minter"], all_achievements[idx]["id"])
     }
     //for tests
-    addCardToAchievements('Название2', 'Краткое описание Краткое описание...', 'nickname2', '#achievement2');
+    addCardToAchievements('Название2', 'Краткое описание Краткое описание...', 'nickname2', '#achievement2', 2);
     createModal('achievement2', 'New Title', 'New description...', 'New Owner', 'New Sender', '2');
-    addCardToAchievements('Название3', 'Краткое описание Краткое описание...', 'nickname3', '#achievement3');
+    addCardToAchievements('Название3', 'Краткое описание Краткое описание...', 'nickname3', '#achievement3', 3);
     createModal('achievement3', 'Another Title', 'Another description...', 'Another Owner', 'Another Sender', '3');
 
-    addCardToAchievements('Название4', 'Краткое описание Краткое описание...', 'nickname4', '#achievement4');
+    addCardToAchievements('Название4', 'Краткое описание Краткое описание...', 'nickname4', '#achievement4', 4);
     createModal('achievement4', 'New Title', 'New description...', 'New Owner', 'New Sender', '4');
-    addCardToAchievements('Название5', 'Краткое описание Краткое описание...', 'nickname5', '#achievement5');
+    addCardToAchievements('Название5', 'Краткое описание Краткое описание...', 'nickname5', '#achievement5', 5);
     createModal('achievement5', 'Another Title', 'Another description...', 'Another Owner', 'Another Sender', '5');
 
 }
