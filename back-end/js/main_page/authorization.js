@@ -1,11 +1,13 @@
 const authorizarionButton = document.querySelector(".menu__item_signup");
 
-authorizarionButton.addEventListener("click", async () => {
+authorizarionButton.addEventListener("click", async (evt) => {
+    evt.preventDefault();
     if(await getCookie("initialization") === "false") {
         await init();
     } else {
         await logout();
     }
+    checkAutho();
 })
 
 // Выход из аккаунта Metamask
