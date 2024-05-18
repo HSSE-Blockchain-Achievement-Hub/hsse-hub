@@ -148,7 +148,7 @@ function createCard(title, description, from, link, id) {
     // Create card container
     const card = document.createElement('div');
     card.className = 'card';
-    card.id = id;
+    card.id = '#' + id;
     // Create card image div
     const cardImage = document.createElement('div');
     cardImage.className = 'card__image';
