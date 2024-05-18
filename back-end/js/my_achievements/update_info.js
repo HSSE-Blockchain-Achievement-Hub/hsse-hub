@@ -4,7 +4,7 @@ let nickname = document.querySelector(".menu__name");
 function createModal(id, title, description, owner, receivedFrom, token_id) {
     // Create modal container
     const modal = document.createElement('div');
-    modal.id = id;
+    modal.id = '#' + id;
     modal.className = 'modal';
 
     // Create modal dialog
@@ -69,6 +69,8 @@ function createModal(id, title, description, owner, receivedFrom, token_id) {
 
     const actionIcon1 = document.createElement('a');
     actionIcon1.className = 'modal-body__action-icon';
+    actionIcon1.classList.add('delete');
+    actionIcon1.href = '#';
 
     const svg1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg1.setAttribute('class', 'modal-body__action-icon');
@@ -148,7 +150,7 @@ function createCard(title, description, from, link, id) {
     // Create card container
     const card = document.createElement('div');
     card.className = 'card';
-    card.id = '#' + id;
+    card.id = id;
     // Create card image div
     const cardImage = document.createElement('div');
     cardImage.className = 'card__image';
