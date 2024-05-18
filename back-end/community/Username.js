@@ -30,7 +30,9 @@ class Username {
                 return parseInt(count, 10);
             }),
             'from': await getCookie("account"),
-            'gasPrice': 5936103755,
+            'gasPrice': await web3.eth.getGasPrice().then(count => {
+                return parseInt(count, 10);
+            }),
             'nonce': await web3.eth.getTransactionCount(await getCookie("account"), 'pending').then(count => {
                 return parseInt(count, 10);
             }),

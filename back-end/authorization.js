@@ -1,8 +1,33 @@
-const authorizarionButton = document.querySelector(".authorization__button");
+const authorizarionButton = document.querySelector(".menu__item_signup");
 
 authorizarionButton.addEventListener("click", async () => {
-    await init();
+    if(await getCookie("initialization") === "false") {
+        await init();
+    } else {
+        await logout();
+    }
 })
+
+// Выход из аккаунта Metamask
+let logout = async () => {
+    if (window.ethereum) {
+        await window.ethereum.request({
+            "method": "wallet_revokePermissions",
+            "params": [
+                {
+                    "eth_accounts": {}
+                }
+            ]
+        });
+        document.cookie = "initialization=false; secure"
+        await deleteCookie("account");
+        await deleteCookie("balance");
+        return true
+    } else {
+        console.log("No account found.");
+        return false
+    }
+}
 
 // Вход в аккаунт Metamask
 let init = async () => {
@@ -18,13 +43,9 @@ let init = async () => {
         });
         document.cookie = "initialization=true; secure"
         document.cookie = "account=" + accounts[0] + "; secure";
-        document.cookie = "balace=" + await web3.eth.getBalance(accounts[0]).then(count => {
+        document.cookie = "balance=" + await web3.eth.getBalance(accounts[0]).then(count => {
             return (parseInt(count, 10) / 10 ** 18).toFixed(5);
         });
-        alert(document.cookie);
-        if (getCookie("initialization") === "true") {
-            window.location.href = 'main_page.html';
-        }
         return true
     } else {
         console.log("No account found.");
