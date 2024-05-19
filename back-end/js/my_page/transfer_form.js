@@ -1,4 +1,4 @@
-const addButton = document.querySelector('.input__btn_action_add');
+const transferButton = document.querySelector('.input__btn_action_add');
 const form = document.forms.transfer;
 const key = form.elements.key;
 const isValid = true;
@@ -11,11 +11,11 @@ function addTransfer(nameValue) {
 
 function setSubmitButtonState(isFormValid) {
     if (isFormValid) {
-        addButton.removeAttribute('disabled');
-        addButton.classList.remove('input__btn_disabled');
+        transferButton.removeAttribute('disabled');
+        transferButton.classList.remove('input__btn_disabled');
     } else {
-        addButton.setAttribute('disabled', true);
-        addButton.classList.add('input__btn_disabled');
+        transferButton.setAttribute('disabled', true);
+        transferButton.classList.add('input__btn_disabled');
     }
 }
 

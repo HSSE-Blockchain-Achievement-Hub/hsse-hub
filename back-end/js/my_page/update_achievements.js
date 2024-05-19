@@ -1,7 +1,5 @@
-let nickname = document.querySelector(".menu__name");
-
 // Function to create a new modal
-function createModal(id, title, description, owner, receivedFrom, token_id) {
+function createModal(id, title, description, owner, receivedFrom, token_id, URL) {
     // Create modal container
     const modal = document.createElement('div');
     modal.id = id;
@@ -146,7 +144,7 @@ function createModal(id, title, description, owner, receivedFrom, token_id) {
 }
 
 // Function to create a new card
-function createCard(title, description, from, link, id) {
+function createCard(title, description, from, link, id, URL) {
     // Create card container
     const card = document.createElement('div');
     card.className = 'card';
@@ -223,30 +221,25 @@ function addCardToAchievements(title, description, from, link, id) {
 }
 
 
-async function updateSiteInfo() {
-    const usrnm = new Username();
-    const user = new Users();
-    nickname.innerHTML = await usrnm.get_username();
-    let all_achievements = [];
-    all_achievements = (await user.get_all_achievements());
+async function updateAchievements() {
+    const observer = new Observer();
+    let all_achievements = (await observer.get_all_achievements());
 
-    for (let idx = 0; idx < all_achievements.length; idx++) {
+    for (let idx = 1; idx < all_achievements.length; idx++) {
         console.log(all_achievements[idx]);
-        addCardToAchievements(all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], all_achievements[idx]["minter"], '#achievement' + all_achievements[idx]["id"], all_achievements[idx]["id"]);
-        createModal('achievement' + all_achievements[idx]["id"], all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], await usrnm.get_username(), all_achievements[idx]["minter"], all_achievements[idx]["id"])
+        addCardToAchievements(all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], all_achievements[idx]["minter"], '#achievement' + all_achievements[idx]["id"], all_achievements[idx]["id"], all_achievements[idx]["baseURI"]);
+        createModal('achievement' + all_achievements[idx]["id"], all_achievements[idx]["name"], all_achievements[idx]["description"] + ' ' + all_achievements[idx]["baseURI"], await getCookie("account"), all_achievements[idx]["minter"], all_achievements[idx]["id"], all_achievements[idx]["baseURI"])
     }
-    //for tests
-    addCardToAchievements('Название2', 'Краткое описание Краткое описание...', 'nickname2', '#achievement2', 2);
-    createModal('achievement2', 'New Title', 'New description...', 'New Owner', 'New Sender', '2');
-    addCardToAchievements('Название3', 'Краткое описание Краткое описание...', 'nickname3', '#achievement3', 3);
-    createModal('achievement3', 'Another Title', 'Another description...', 'Another Owner', 'Another Sender', '3');
-
-    addCardToAchievements('Название4', 'Краткое описание Краткое описание...', 'nickname4', '#achievement4', 4);
-    createModal('achievement4', 'New Title', 'New description...', 'New Owner', 'New Sender', '4');
-    addCardToAchievements('Название5', 'Краткое описание Краткое описание...', 'nickname5', '#achievement5', 5);
-    createModal('achievement5', 'Another Title', 'Another description...', 'Another Owner', 'Another Sender', '5');
+    // //for tests
+    // addCardToAchievements('Название5', 'Краткое описание Краткое описание...', 'nickname3', '#achievement5', 5);
+    // createModal('achievement5', 'Another Title', 'Another description...', 'Another Owner', 'Another Sender', '5');
+    //
+    // addCardToAchievements('Название6', 'Краткое описание Краткое описание...', 'nickname4', '#achievement6', 6);
+    // createModal('achievement6', 'New Title', 'New description...', 'New Owner', 'New Sender', '6');
+    // addCardToAchievements('Название7', 'Краткое описание Краткое описание...', 'nickname5', '#achievement7', 7);
+    // createModal('achievement7', 'Another Title', 'Another description...', 'Another Owner', 'Another Sender', '7');
 
 }
 
 
-updateSiteInfo();
+updateAchievements();

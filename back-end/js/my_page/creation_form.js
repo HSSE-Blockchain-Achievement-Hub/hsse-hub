@@ -5,6 +5,17 @@ const creation_form = document.forms.create;
 async function addCreation(nameValue, keyValue, refValue, descrValue, checkedValue) {
     let subsNumber = document.querySelector('.header__information__top_value');
     subsNumber.innerHTML = +subsNumber.textContent + 1;
+    let builder = new AchievementBuilder();
+    builder.with_name(nameValue);
+    builder.with_description(descrValue);
+    builder.with_URL(refValue);
+    if(checkedValue) {
+        builder.make_private();
+    } else {
+        builder.make_public();
+    }
+    builder.with_recipient(keyValue);
+    builder.build();
 }
 
 async function setSubmitButtonState_creation(isFormValid) {
@@ -39,6 +50,6 @@ creation_form.addEventListener('input', async function (evt) {
     const key = creation_form.elements.key;
     const ref = creation_form.elements.ref;
 
-    const isValid = name.value.length > 0 && ((key.value[0] === '@' && key.value.length > 1) || key.value.length === 42) && key.value.length > 0 && ref.value.length > 0;
+    const isValid = name.value.length > 0 && (key.value.length <= 30 || key.value.length === 42) && key.value.length > 0 && ref.value.length > 0;
     await setSubmitButtonState_creation(isValid);
 });
