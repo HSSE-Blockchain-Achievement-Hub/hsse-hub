@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="img/Vector.png">
+  <title> Обозреватель </title>
+  <link rel="stylesheet" href="css/observer_achievements.css">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+</head>
+<body>
+<menu class="menu">
+<img class="menu__image" src="img/observer_achievements/green_logo.svg">
+  <a href="main_page.html" class="menu__item menu__item_name">Blockchain Achievement Hub</a>
+  <li class="menu__half menu__half_right">
+    <a href="observer.html" target="_blank" class="menu__item menu__item_signup">Пользователи</a>
+    <a href="#self" target="_blank"
+       class="menu__item menu__item_signup">Достижения</a>
+  </li>
+</menu>
+<main class="content">
+  <form class="search">
+    <img class="search__loop" src="img/search2.svg">
+    <input class="search__word" type="text" name="name" placeholder="Название">
+    <a href="#self"><img class="search__filter" src="img/filter.svg"></a>
+  </form>
+  <div class="achievements">
+    <div class="card">
+      <div class="card__image"></div>
+      <div class="card__information">
+        <div class="card__information_title">Название</div>
+        <div class="card__information_description">Краткое описание Краткое описание Краткое описание Краткое описание
+          Краткое описание Краткое описание Краткое описание Краткое описание Краткое описание Краткое описание Краткое
+          описание Краткое описание Краткое описание Краткое описание
+        </div>
+        <div class="card__information_from">Получено от: nickname</div>
+      </div>
+      <a href="#achievement1" class="card__icon-button">
+        <img class="card__icon" src="img/observer_achievements/three_dots.svg">
+      </a>
+    </div>
+    <div class="card">
+      <div class="card__image"></div>
+      <div class="card__information">
+        <div class="card__information_title">Название</div>
+        <div class="card__information_description">Краткое описание Краткое описание Краткое описание Краткое описание
+          Краткое описание Краткое описание Краткое описание Краткое описание Краткое описание
+        </div>
+        <div class="card__information_from">Получено от: nickname</div>
+      </div>
+      <a href="#achievement2" class="card__icon-button">
+        <img class="card__icon" src="img/observer_achievements/three_dots.svg">
+      </a></div>
+    <div class="card">
+      <div class="card__image"></div>
+      <div class="card__information">
+        <div class="card__information_title">Название</div>
+        <div class="card__information_description">Краткое описание Краткое описание Краткое описание Краткое описание
+          Краткое описание Краткое описание Краткое описание
+        </div>
+        <div class="card__information_from">Получено от: nickname</div>
+      </div>
+      <a href="#achievement3" class="card__icon-button">
+        <img class="card__icon" src="img/observer_achievements/three_dots.svg">
+      </a></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+  </div>
+  
+  <div id="achievement1" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">НАЗВАНИЕ</h3>
+          <a href="#close" title="Close" class="close">×</a>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body__image">
+          </div>
+          <div class="modal-body__description">
+            Описание описание описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+          </div>
+          <div class="modal-body__information">
+            Владелец: Nickname
+          </div>
+          <div class="modal-body__information">
+            Получено от: Nickname
+          </div>
+          <div class="modal-body__information">
+            Стоимость: 1000000
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="achievement2" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">НАЗВАНИЕ</h3>
+          <a href="#close" title="Close" class="close">×</a>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body__image">
+          </div>
+          <div class="modal-body__description">
+            Описание описание описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+          </div>
+          <div class="modal-body__information">
+            Владелец: Nickname
+          </div>
+          <div class="modal-body__information">
+            Получено от: Nickname
+          </div>
+          <div class="modal-body__information">
+            Стоимость: 1000000
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="achievement3" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">НАЗВАНИЕ</h3>
+          <a href="#close" title="Close" class="close">×</a>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body__image">
+          </div>
+          <div class="modal-body__description">
+            Описание описание описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+            описание описание описание описание
+          </div>
+          <div class="modal-body__information">
+            Владелец: Nickname
+          </div>
+          <div class="modal-body__information">
+            Получено от: Nickname
+          </div>
+          <div class="modal-body__information">
+            Стоимость: 1000000
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</main>
+<footer class="footer" id="contacts">
+  <a href="https://vk.com/hssemiptru" target="_blank"><img class="footer__logo" src="img/vk.svg" alt="Вконтакте"></a>
+  <a href="https://t.me/hsse_entering" target="_blank"><img class="footer__logo" src="img/telegram.svg" alt="Телеграм"></a>
+  <a href="https://mail.yandex.ru" target="_blank"><img class="footer__logo" src="img/mail.svg" alt="Почта"></a>
+  <p class="footer__text">Blockchain Achievement Hub</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.8.0/web3.min.js"
+        integrity="sha512-ezmwxlbrU+yplnt3MahXAQaNiiGS+5afDIgMIaFSVYN78y5yjiNl3pF9z/i7gunDB2ppegmfyjXlD/3HibuvXw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/common/cookies.js"></script>
+<script src="js/common/addresses.js"></script>
+<script src="js/common/abies.js"></script>
+<script src="js/common/contracts.js"></script>
+<script src="js/community/Subscriber.js"></script>
+<script src="js/observer/search.js"></script>
+<script src="js/observer/subscribe.js"></script>
+</body>
+</html>
