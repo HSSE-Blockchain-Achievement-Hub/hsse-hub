@@ -2,32 +2,7 @@
     box-sizing: border-box;
 }
 
-@media (max-width: 1100px) {
-    .menu {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-        align-items: center;
-    }
 
-    .menu__half {
-        display: flex;
-        margin: auto !important;
-        align-items: center;
-    }
-
-    .menu__item {
-        margin: auto;
-    }
-
-    .menu__half_left {
-        align-items: center;
-    }
-
-    .menu__half_right {
-        margin: auto !important;
-    }
-}
 
 
 body {
@@ -52,10 +27,10 @@ body {
     text-decoration: none;
     color: #ffffff;
     margin: auto;
-    justify-content: space-between;
 }
 
 .menu__item_name {
+    width: fit-content;
     font-size: 1.5vw;
     text-align: center;
     margin-left: 0;
@@ -63,6 +38,7 @@ body {
 }
 
 .menu__item_signin {
+    min-width: 80px;
     width: 7vw;
     font-size: 100%;
     font-weight: 600;
@@ -76,7 +52,8 @@ body {
 }
 
 .menu__item_signup {
-    width: 10vw;
+    min-width: 150px;
+    width: 7vw;
     font-size: 100%;
     font-weight: 600;
     text-align: center;
@@ -102,6 +79,7 @@ body {
 
 .menu__half {
     display: flex;
+    flex-direction: row;
     align-items: center;
     text-decoration: none;
     min-height: 60px;
@@ -109,7 +87,7 @@ body {
 
 .menu__half_left {
     min-width: 250px;
-    gap: 0.6vw;
+    gap: 0;
     text-align: center;
     margin-left: 5%;
 }
@@ -118,7 +96,6 @@ body {
     gap: 20px;
     text-align: center;
     margin-right: 10%;
-
 }
 
 .menu__wallet {
@@ -177,9 +154,10 @@ body {
 }
 
 .header__image {
+
     max-width: 100%;
-    height: auto;
-    width: auto \9;
+    width: 35%;
+
     margin-right: 15%;
 }
 
@@ -264,10 +242,12 @@ body {
 
 .information__image_left {
     margin-left: 5%;
+    width: 18vw;
 }
 
 .information__image_right {
     margin-right: 5%;
+    width: 18vw;
 }
 
 .information__interesting {
@@ -316,11 +296,10 @@ body {
     margin-top: 0.3vw;
     max-width: 50%;
     width: 3.5%;
-    /*width: auto \9;*/
 }
 
 .logo__image {
-
+    width: 3vw;
 }
 
 .footer__text {
@@ -329,4 +308,34 @@ body {
     color: #ffffff;
     opacity: 0.75;
     font-size: 1.5vw;
+}
+
+@media (max-width: 900px) {
+    .menu {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        align-items: center;
+    }
+
+    .menu__half {
+        margin: auto;
+        align-items: center;
+    }
+
+    .menu__image {
+        margin: auto;
+    }
+
+    .menu__item_name {
+        font-size: 3vw;
+    }
+
+    .menu__half_left {
+        align-items: center;
+    }
+
+    .menu__half_right {
+        margin: auto !important;
+    }
 }
