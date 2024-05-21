@@ -5,9 +5,9 @@
 2. UniqueUsers
 3. Subscribers
 4. SuperUsers
-5. UniqueUsers.addTrusContracts([Subscribers, SuperUsers])
+5. UniqueUsers.addTrustContracts([Subscribers, SuperUsers])
 6. MyToken
-7. UniqueUsers.addTrusContracts([MyToken])
+7. UniqueUsers.addTrustContracts([MyToken])
 
 ## Contracts addresses:
 Network Sepolia (ETH)
