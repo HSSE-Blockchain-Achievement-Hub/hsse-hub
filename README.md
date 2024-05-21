@@ -10,7 +10,7 @@
 7. UniqueUsers.addTrusContracts([MyToken])
 
 ## Contracts addresses:
-Network Sepolia
+Network Sepolia (ETH)
 <pre>
 * Usernames:   0x6a77553aCB23724A6776B7CE51A5e9c644B4dF37
 * UniqueUsers: 0x51f55541fA3aEEF65F5766eFA934397ebd4e63a2
