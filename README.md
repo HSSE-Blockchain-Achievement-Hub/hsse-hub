@@ -18,3 +18,6 @@ Network Sepolia (ETH)
 * SuperUsers:  0x5ADF32Fdd26191128dDc13E124f8C3E03DF3152B
 * MyToken:     0xf29aE858b29ce32bE874DCf10CD6Cc646BE9175B
 </pre>
+## Test coverage:
+![image](https://github.com/HSSE-Blockchain-Achievement-Hub/hsse-hub/assets/74131544/68dac823-d7e2-46ae-9124-b38d401bae1b)
+
